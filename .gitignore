@@ -12,3 +12,5 @@ docs/
 
 # Dotenv file
 .env
+audit-data/findings.md
+audit-data/bigbagboogy.md
