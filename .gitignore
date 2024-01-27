@@ -14,3 +14,6 @@ docs/
 .env
 audit-data/findings.md
 audit-data/bigbagboogy.md
+
+
+node_modules
