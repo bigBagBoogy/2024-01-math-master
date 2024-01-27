@@ -1,8 +1,0 @@
-# to activate:
-source <venv-dir>/bin/activate
-
-# to deactivate:
-deactivate
-
-This python based Halmos stuff should run in it's own shell. 
-You should activate and deactivate this, to avoid conflicts with other future projects.
