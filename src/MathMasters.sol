@@ -32,7 +32,7 @@ library MathMasters {
     //////////////////////////////////////////////////////////////*/
 
     /// @dev Equivalent to `(x * y) / WAD` rounded down.
-    function mulWad(uint256 x, uint256 y) internal pure returns (uint256 z) {
+    function mulWad(uint256 x, uint256 y) external pure returns (uint256 z) {
         // @solidity memory-safe-assembly
         assembly {
             // Equivalent to `require(y == 0 || x <= type(uint256).max / y)`.
@@ -45,7 +45,7 @@ library MathMasters {
     }
 
     /// @dev Equivalent to `(x * y) / WAD` rounded up.
-    function mulWadUp(uint256 x, uint256 y) internal pure returns (uint256 z) {
+    function mulWadUp(uint256 x, uint256 y) external pure returns (uint256 z) {
         /// @solidity memory-safe-assembly
         assembly {
             // Equivalent to `require(y == 0 || x <= type(uint256).max / y)`.

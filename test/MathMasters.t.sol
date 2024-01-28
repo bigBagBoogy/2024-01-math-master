@@ -43,10 +43,11 @@ contract MathMastersTest is Base_Test {
         // depending on whether you want to consider such an overflow case as passing or failing.
     }
 
-    function testSqrt() public {
+    function testSqrtUnit() public {
         assertEq(MathMasters.sqrt(0), 0);
         assertEq(MathMasters.sqrt(1), 1);
         assertEq(MathMasters.sqrt(2704), 52);
+        console2.log(MathMasters.sqrt((2 ** 77) - 1)); // mersenne prime
         assertEq(MathMasters.sqrt(110889), 333);
         assertEq(MathMasters.sqrt(32239684), 5678);
         assertEq(MathMasters.sqrt(type(uint256).max), 340282366920938463463374607431768211455);
@@ -117,5 +118,39 @@ contract MathMastersTest is Base_Test {
 
         // The lower bound is 99% of the maximum value
         lowerBound = maxUint256 - onePercentOfMax;
+    }
+
+    function check_sqrtCalculationBreaksOnMemory2(uint256 x) public pure {
+        uint256 actualSqrt = MathMasters.sqrt(x);
+        // Check consistency: square root of a number squared equals the original number
+        assert(actualSqrt * actualSqrt <= x);
+    }
+
+    function test_sqrtCalculationBreaksOnMemoryUnit(uint256 x) public pure {
+        x = 16;
+        uint256 actualSqrt = MathMasters.sqrt(x);
+        console2.log("outcome: ", MathMasters.sqrt(x));
+        // Check consistency: square root of a number squared equals the original number
+        assert(actualSqrt * actualSqrt <= x);
+    }
+
+    // Test function to verify the function selector for mulWadUp
+    function testMulWadUpFunctionSelector() public {
+        // Retrieve the function selector of mulWadUp
+        bytes4 actualSelector = MathMasters.mulWadUp.selector;
+        // Define the expected function selector for mulWadUp
+        bytes4 expectedSelector = bytes4(keccak256("mulWadUp(uint256,uint256)"));
+        // Compare the actual and expected function selectors
+        assertEq(actualSelector, expectedSelector, "mulWadUp function selector incorrect");
+    }
+
+    // Test function to verify the function selector for mulWad
+    function testMulWadFunctionSelector() public {
+        // Retrieve the function selector of mulWad
+        bytes4 actualSelector = MathMasters.mulWad.selector;
+        // Define the expected function selector for mulWad
+        bytes4 expectedSelector = bytes4(keccak256("mulWad(uint256,uint256)"));
+        // Compare the actual and expected function selectors
+        assertEq(actualSelector, expectedSelector, "mulWad function selector incorrect");
     }
 }
