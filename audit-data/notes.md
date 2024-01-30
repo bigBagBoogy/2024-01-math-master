@@ -59,3 +59,12 @@ The free memory pointer is not always updated for these operations, and the memo
 The `MathMasters library` does not utilize contract storage. It consists entirely of pure functions and does not modify or read from storage. Therefore, issues related to incorrect storage slot packaging do not apply to this library.
 
 Since the library only contains pure functions, it mainly deals with computations and does not interact with external contracts or read/write from/to storage. As a result, concerns related to storage efficiency and storage slot packaging are not applicable in this context. The main considerations for this library would be ensuring the correctness and efficiency of the mathematical operations it performs.
+
+
+# properties of sqrt function:
+
+it should never revert
+it should be able to deliver correct returns
+it should be able to deliver correct returns when doing 2 consecutive calculations
+( sqrt of 196 = 16, sqrt of 16 = 4 )
+

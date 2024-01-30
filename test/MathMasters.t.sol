@@ -79,8 +79,11 @@ contract MathMastersTest is Base_Test {
     // Halmos FV test
 
     function check_sqrtCalculationBreaksOnMemory(uint256 x) public pure {
-        (uint256 lowerBound, uint256 upperBound) = top1PercentRange();
-        vm.assume(x >= lowerBound && x <= upperBound);
+        // (uint256 lowerBound, uint256 upperBound) = top1PercentRange();
+        // uint256 lowerBound = 0;
+        // uint256 upperBound = 3;
+        // vm.assume(x >= lowerBound && x <= upperBound);
+        vm.assume(x == 16);
         // Calculate the square root using Solidity's built-in sqrt function as a reference
         uint256 expectedSqrt = sqrtReference(x);
 
@@ -153,4 +156,56 @@ contract MathMastersTest is Base_Test {
         // Compare the actual and expected function selectors
         assertEq(actualSelector, expectedSelector, "mulWad function selector incorrect");
     }
+
+    function check_sqrtCalculationSuperSimple(uint256 x) public {
+        vm.assume(x >= 0 && x <= type(uint8).max);
+        uint256 actualSqrt = MathMasters.sqrt(x);
+        assertLt(actualSqrt, x);
+    }
+
+    function simplifiedTest() public {
+        // Test with smaller input values initially
+        assertEq(MathMasters.sqrt(0), 0);
+        assertEq(MathMasters.sqrt(1), 1);
+
+        // Test specific edge cases
+        assertEq(MathMasters.sqrt(2704), 52); // Perfect square
+        assertEq(MathMasters.sqrt(32239684), 5678); // Large input value
+    }
+
+    function parameterizedTest(uint256 x) public {
+        // Set constraints on the input value
+        vm.assume(x >= 0 && x <= type(uint256).max);
+
+        // Get the square root using the MathMasters library function
+        uint256 actualSqrt = MathMasters.sqrt(x);
+
+        // Define the expected square root based on the input value
+        uint256 expectedSqrt = sqrtReference(x);
+
+        // Ensure that the actual square root matches the expected square root
+        assertEq(actualSqrt, expectedSqrt, "Square root calculation incorrect");
+    }
+
+    // function check_sqrt_doesnt_revert_halmos(uint128 num) public view {
+    //     // Perform low level call
+    //     (bool success,) = address(MathMasters).staticcall(abi.encodeWithSelector(MathMasters.sqrt.selector, num));
+
+    //     // Ensure that the call was successful
+    //     require(success, "Square root calculation reverted");
+    // }
+
+    // function check_sqrt_doesnt_revert_try_halmos(uint128 num) public pure {
+    //     // Perform function call
+    //     try MathMasters.sqrt(num) returns (uint256 result) {
+    //         // Ensure that the function call was successful
+    //         require(result > 0, "Square root calculation returned zero");
+    //     } catch Error(string memory) {
+    //         // Revert with a custom error message if the function call reverted
+    //         revert("Square root calculation reverted");
+    //     } catch {
+    //         // Revert with a generic error message if an unexpected error occurred
+    //         revert("Error during square root calculation");
+    //     }
+    // }
 }
