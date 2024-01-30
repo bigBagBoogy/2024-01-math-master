@@ -68,3 +68,16 @@ it should be able to deliver correct returns
 it should be able to deliver correct returns when doing 2 consecutive calculations
 ( sqrt of 196 = 16, sqrt of 16 = 4 )
 
+Here are 10 properties that should always hold true for the provided sqrt function:
+
+1. Correctness: The function should accurately compute the square root of the input x.
+2. Safety: The function should not cause memory corruption or unsafe behavior.
+3. Deterministic: For a given input x, the function should always return the same result.
+4. Efficiency: The function should execute in a reasonable amount of time and gas cost.
+5. Stability: The function should not produce wildly varying results for similar inputs.
+6. Accuracy: The computed square root should be close to the actual square root of x.
+7. Overflow Prevention: The function should prevent overflow or underflow in all arithmetic operations.
+8. No External Dependencies: The function should not rely on external contracts or libraries.
+9. Readability: The code should be clear and understandable to developers.
+10. Robustness: The function should handle edge cases and corner cases gracefully without crashing or producing incorrect results.
+
